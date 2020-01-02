@@ -56,7 +56,8 @@ public:
 		if(dot(r.direction(), rec.normal) > 0) {
 			outward_normal = -rec.normal;
 			mu = ref_ind;
-			cosine = ref_ind * dot(r.direction(), rec.normal) / r.direction().length();
+			cosine = dot(r.direction(), rec.normal) / r.direction().length();
+            cosine = sqrt(1 - ref_ind*ref_ind*(1-cosine*cosine));
 		} else {
 			outward_normal = rec.normal;
 			mu = 1/ref_ind;
@@ -64,10 +65,8 @@ public:
 		}
 
 		if(refract(r.direction(), outward_normal, mu, refracted)) {
-			scattered = ray(rec.p, refracted);
 			reflect_prob = schlick(cosine, ref_ind);
 		} else {
-			scattered = ray(rec.p, reflected);
 			reflect_prob = 1;
 		}
 

@@ -15,7 +15,7 @@ vec3 random_in_disk() {
 	vec3 p;
 	do {
 		p = 2 * vec3(random_double(), random_double(), 0) - vec3(1, 1, 0);
-	} while(dot(p, p) >= 1.0);
+	} while(p.squared_length() >= 1.0);
 	return p;
 }
 

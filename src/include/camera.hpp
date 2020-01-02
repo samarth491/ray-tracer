@@ -7,9 +7,10 @@
 class camera {
 public:
 	camera(vec3 look_from, vec3 look_at, vec3 vup, float vfov, float aspect, float aperture, float focus_dist) {
-		lens_radius = aperture / 2;
+		const float PI = acos(-1);
 
-		float theta = vfov * M_PI / 180;
+		lens_radius = aperture / 2;
+		float theta = vfov * PI / 180;
 		float half_height = tan(theta/2);
 		float half_width = aspect * half_height;
 

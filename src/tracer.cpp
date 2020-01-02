@@ -64,15 +64,14 @@ vec3 color(const ray &r, hitable *world, int depth)
 
 int main(void)
 {
-	// freopen("idk.ppm","wt",stdout);
+	int nx=1200,ny=800,ns=10;
 
 	std::cout<<"P3\n";
-	int nx=1,ny=1,ns=1;
 	std::cout<<nx<<" "<<ny<<"\n255\n";
 
 	vec3 look_from = vec3(13, 2, 3);
 	vec3 look_at = vec3(0, 0, 0);
-	float dist_to_focus = 10;
+	float dist_to_focus = 11;
 	float aperture = 0.1;
 
 	camera cam(look_from, look_at, vec3(0, 1, 0), 20, float(nx) / float(ny), aperture, dist_to_focus);
@@ -86,8 +85,8 @@ int main(void)
 			vec3 col(0,0,0);
 			for(int k=0;k<ns;k++)
 			{
-				float u = float(i+drand48()) / float(nx);
-				float v = float(j+drand48()) / float(ny);
+				float u = float(i+random_double()) / float(nx);
+				float v = float(j+random_double()) / float(ny);
 				ray R = cam.get_ray(u,v);
 				col += color(R, world, 0);	
 			}
