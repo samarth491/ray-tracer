@@ -6,7 +6,7 @@
 #include "vec3.hpp"
 
 float random_double() {
-	std::mt19937 rng32(chrono::steady_clock::now().time_since_epoch().count());
+	std::mt19937 rng32(std::chrono::steady_clock::now().time_since_epoch().count());
 	std::uniform_real_distribution<double> dist(0.0, 1.0);
 	return dist(rng32);
 }
@@ -49,5 +49,6 @@ float schlick(float cosine, float ref_ind) {
 	r0 *= r0;
 	return r0 + (1 - r0) * pow((1 - cosine), 5);
 }
+
 
 #endif
