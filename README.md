@@ -15,8 +15,3 @@ A general ray tracer with indirect lighting system.
 4. ./tracer >image.ppm
 5. Open 'image.ppm' to view the final result.
 ```
-
-To clean up, use `$ make clean`.
-
-[1]: https://github.com/RayTracing/raytracing.github.io
-[2]: https://research.nvidia.com/person/peter-shirley
