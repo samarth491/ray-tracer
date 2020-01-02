@@ -1,7 +1,7 @@
 #ifndef HITABLELISTH
 #define HITABLELISTH
 
-#include "hitable.h"
+#include "hitable.hpp"
 
 class hitable_list: public hitable {
 public:
