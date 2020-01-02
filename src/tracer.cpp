@@ -67,7 +67,7 @@ int main(void)
 	// freopen("idk.ppm","wt",stdout);
 
 	std::cout<<"P3\n";
-	int nx=200,ny=100,ns=100;
+	int nx=1,ny=1,ns=1;
 	std::cout<<nx<<" "<<ny<<"\n255\n";
 
 	vec3 look_from = vec3(13, 2, 3);
