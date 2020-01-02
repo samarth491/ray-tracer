@@ -64,7 +64,7 @@ vec3 color(const ray &r, hitable *world, int depth)
 
 int main(void)
 {
-	freopen("idk.ppm","wt",stdout);
+	// freopen("idk.ppm","wt",stdout);
 
 	std::cout<<"P3\n";
 	int nx=200,ny=100,ns=100;
