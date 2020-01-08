@@ -1,12 +1,17 @@
 #ifndef VEC3H
 #define VEC3H
 
+#include <iostream>
+#include <cmath>
+
+#include "definitions.hpp"
+
 class vec3 {
 public:
 	float val[3];
 
-	vec3(){}
-	vec3(float x,float y, float z) {
+	CHD vec3(){}
+	CHD vec3(float x,float y, float z) {
 		val[0]=x,
 		val[1]=y,
 		val[2]=z;
@@ -14,140 +19,56 @@ public:
 
 	//returning values
 
-	inline float x() const { return val[0]; }
-	inline float y() const { return val[1]; }
-	inline float z() const { return val[2]; }
+	CHD inline float x() const { return val[0]; }
+	CHD inline float y() const { return val[1]; }
+	CHD inline float z() const { return val[2]; }
 
-	inline float r() const { return val[0]; }
-	inline float g() const { return val[1]; }
-	inline float b() const { return val[2]; }
+	CHD inline float r() const { return val[0]; }
+	CHD inline float g() const { return val[1]; }
+	CHD inline float b() const { return val[2]; }
 
 	//basic operations of +v, -v, v[i]
 
-	inline const vec3& operator+() const { return *this; }
-	inline vec3 operator-() const { return vec3(-val[0], -val[1], -val[2]); }
-	inline float operator[](int i) const { return val[i]; }	
-	inline float& operator[](int i) { return val[i]; }
+	CHD inline const vec3& operator+() const { return *this; }
+	CHD inline vec3 operator-() const { return vec3(-val[0], -val[1], -val[2]); }
+	CHD inline float operator[](int i) const { return val[i]; }	
+	CHD inline float& operator[](int i) { return val[i]; }
 
-	//operators for add, subtract, multiply, divide and their shorthands
+	// io
 
-	inline vec3 operator+(const vec3 &v2) const {
-		const vec3 v1 = *this;
-		return vec3(v1.val[0] + v2.val[0], v1.val[1] + v2.val[1], v1.val[2] + v2.val[2]);
-	}
+	CH friend std::istream& operator>>(std::istream&, vec3&);
+	CH friend std::ostream& operator<<(std::ostream&, vec3&);
 
-	inline vec3 operator-(const vec3 &v2) const {
-		const vec3 v1 = *this;
-		return vec3(v1.val[0] - v2.val[0], v1.val[1] - v2.val[1], v1.val[2] - v2.val[2]);
-	}
+	// operations on vectors
 
-	inline vec3 operator*(const vec3 &v2) const {
-		const vec3 v1 = *this;
-		return vec3(v1.val[0] * v2.val[0], v1.val[1] * v2.val[1], v1.val[2] * v2.val[2]);
-	}
+	CHD friend vec3 operator+(const vec3, const vec3);
+	CHD friend vec3 operator-(const vec3, const vec3);
+	CHD friend vec3 operator*(const vec3, const vec3);
+	CHD friend vec3 operator/(const vec3, const vec3);
+	CHD friend vec3 operator*(const vec3, const float);
+	CHD friend vec3 operator/(const vec3, const float);
+	CHD friend vec3 operator*(const float, const vec3);
 
-	inline vec3 operator/(const vec3 &v2) const {
-		const vec3 v1 = *this;
-		return vec3(v1.val[0] / v2.val[0], v1.val[1] / v2.val[1], v1.val[2] / v2.val[2]);
-	}
+	// shorthands
 
-	inline vec3 operator*(float f) const {
-		const vec3 v1 = *this;
-		return vec3(v1.val[0] * f, v1.val[1] * f, v1.val[2] * f);
-	}
-
-	inline vec3 operator/(float f) const {
-		const vec3 v1 = *this;
-		float k = 1/f;
-		return vec3(v1.val[0] * k, v1.val[1] * k, v1.val[2] * k);
-	}
-
-	inline vec3& operator+=(const vec3 v) {
-		val[0] += v.val[0];
-		val[1] += v.val[1];
-		val[2] += v.val[2];
-		return *this;
-	}
-
-	inline vec3& operator-=(const vec3 v) {
-		val[0] -= v.val[0];
-		val[1] -= v.val[1];
-		val[2] -= v.val[2];
-		return *this;
-	}
-
-	inline vec3& operator*=(const vec3 v) {
-		val[0] *= v.val[0];
-		val[1] *= v.val[1];
-		val[2] *= v.val[2];
-		return *this;
-	}
-
-	inline vec3& operator/=(const vec3 v) {
-		val[0] /= v.val[0];
-		val[1] /= v.val[1];
-		val[2] /= v.val[2];
-		return *this;
-	}
-
-	inline vec3& operator*=(const float f) {
-		val[0] *= f;
-		val[1] *= f;
-		val[2] *= f;
-		return *this;
-	}
-
-	inline vec3& operator/=(const float f) {
-		float k = 1/f;
-
-		val[0] *= k;
-		val[1] *= k;
-		val[2] *= k;
-		return *this;
-	}
+	CHD vec3& operator+=(const vec3&);
+	CHD vec3& operator-=(const vec3&);
+	CHD vec3& operator*=(const vec3&);
+	CHD vec3& operator/=(const vec3&);
+	CHD vec3& operator*=(const float);
+	CHD vec3& operator/=(const float);
 
 	//utils on vectors
 
-	inline float squared_length() const {
-		return (val[0] * val[0] + val[1] * val[1] + val[2] * val[2]);
-	}
+	CHD inline float squared_length() const { return (val[0] * val[0] + val[1] * val[1] + val[2] * val[2]);}
+	CHD inline float length() const { return sqrt(squared_length());}	
+	CHD inline void make_unit_vector() { *this /= this->length();}
 
-	inline float length() const {
-		return sqrt(squared_length());
-	}	
+	CHD static vec3 unit_vector(const vec3&);
+	CHD static float dot(const vec3&, const vec3&);
+	CHD static vec3 cross(const vec3&, const vec3&);
 
-	inline void unit_vector() {
-		*this /= this->length();
-	}
+
 };
-
-inline std::istream& operator>>(std::istream &is, vec3 &v) {
-	is >> v.val[0] >> v.val[1] >> v.val[2];
-	return is;
-}
-
-inline std::ostream& operator<<(std::ostream &os, const vec3 &v) {
-	os << v.val[0] << " " << v.val[1] << " " << v.val[2];
-	return os;
-}
-
-inline vec3 operator*(float f, vec3 v1) {
-	return vec3(v1.val[0] * f, v1.val[1] * f, v1.val[2] * f);
-}
-
-inline float dot(const vec3 &v1, const vec3 &v2) {
-	return v1.val[0] * v2.val[0] + v1.val[1] * v2.val[1] + v1.val[2] * v2.val[2];
-}
-
-inline vec3 cross(const vec3 &v1, const vec3 &v2) {
-	return vec3( (v1.val[1] * v2.val[2] - v1.val[2] * v2.val[1]),
-				 (v1.val[2] * v2.val[0] - v1.val[0] * v2.val[2]),
-				 (v1.val[0] * v2.val[1] - v1.val[1] * v2.val[0]) );
-}
-
-inline vec3 unit_vector(vec3 v1) {
-	v1.unit_vector();
-	return v1;
-}
 
 #endif
