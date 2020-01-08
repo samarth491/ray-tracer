@@ -25,3 +25,7 @@ clean:
 		rm tracer; \
 		echo 'removed tracer'; \
 	fi
+	@if test -n "$(wildcard *.ppm)"; then \
+		rm *.ppm; \
+		echo 'removed image'; \
+	fi
